@@ -5,6 +5,9 @@ const app = express();
 const cors = require("cors");
 const PORT = process.env.PORT || 5000;
 
+const userRoutes = require("./routes/UserRoutes");
+const taskRoutes = require("./routes/TaskRoutes");
+
 app.use(express.json());
 app.use(
   cors({
@@ -22,10 +25,12 @@ mongoose
     console.error("Failed to connect to MongoDB", err);
   });
 
-
 app.get("/", (req, res) => {
   res.send("API is running...");
 });
+
+app.use("/user", userRoutes);
+// app.use("/tasks", taskRoutes);
 
 app.listen(PORT, () => {
   console.log(`Server is running on port ${PORT}`);
